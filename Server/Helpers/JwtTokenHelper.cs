@@ -14,12 +14,13 @@ public class JwtTokenHelper
         _configuration = configuration;
     }
 
-    public string GenerateToken(int userId, string userName)
+    public string GenerateToken(int userId, string userName, string name)
     {
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-            new Claim(ClaimTypes.Name, userName)
+            new Claim(ClaimTypes.Name, userName),
+            new Claim(ClaimTypes.Actor, name)
         };
         
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
