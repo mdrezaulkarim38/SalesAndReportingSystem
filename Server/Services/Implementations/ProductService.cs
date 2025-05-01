@@ -50,11 +50,11 @@ public class ProductService : IProductService
     public async Task<ProductDto> UpdateAsync(int id, ProductUpdateDto productUpdateDto)
     {
         var product = await _productRepo.GetByIdAsync(id) ?? throw new KeyNotFoundException($"Product with Id {id} not found.");
-        product.Name = productUpdateDto.Name;
-        product.SKU = productUpdateDto.SKU;
-        product.Price = productUpdateDto.Price;
-        product.StockQty = productUpdateDto.StockQty;
-        product.Description = productUpdateDto.Description;
+        product.Name = productUpdateDto.Name ?? product.Name;
+        product.SKU = productUpdateDto.SKU ?? product.SKU;
+        product.Price = productUpdateDto.Price != default ? productUpdateDto.Price : product.Price;
+        product.StockQty = productUpdateDto.StockQty != default ? productUpdateDto.StockQty : product.StockQty;
+        product.Description = productUpdateDto.Description ?? product.Description;
         product.UpdatedAt = DateTime.UtcNow;
         var updateProduct = await _productRepo.UpdateAsync(product);
         return MapToResponseDto(updateProduct);
