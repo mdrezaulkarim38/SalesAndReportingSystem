@@ -17,7 +17,9 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
-        modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+        modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted).Property(p => p.Price).HasPrecision(18, 2);
+        modelBuilder.Entity<Sale>().Property(s => s.TotalPrice).HasPrecision(18, 2);
+        modelBuilder.Entity<Sale>().HasOne(s => s.Product).WithMany().IsRequired(false);
 
         base.OnModelCreating(modelBuilder);
     }
