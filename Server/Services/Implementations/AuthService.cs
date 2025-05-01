@@ -39,11 +39,11 @@ public class AuthService : IAuthService
     public async Task<string> LoginAsync(LoginDto request)
     {
         var user = await _userRepository.GetByUsernameAsync(request.UserName!);
-        if (user == null || !PasswordHasher.VerifyPassword(request.Password!, user.Password))
+        if (user == null || !PasswordHasher.VerifyPassword(request.Password!, user.Password!))
         {
             throw new UnauthorizedAccessException("Invalid username or password.");
         }
 
-        return _jwtTokenHelper.GenerateToken(user.Id, user.UserName, user.Name!);
+        return _jwtTokenHelper.GenerateToken(user.Id, user.UserName!, user.Name!);
     }
 }
