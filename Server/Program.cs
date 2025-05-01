@@ -80,6 +80,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 builder.Services.AddScoped<ISaleService, SaleService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 var app = builder.Build();
 
