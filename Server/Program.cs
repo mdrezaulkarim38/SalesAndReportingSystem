@@ -4,7 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Server.Data;
 using Server.Helpers;
-using Server.Middleware; 
+using Server.Middleware;
+using Server.Repositories.Implementations;
+using Server.Repositories.Interfaces;
+using Server.Services.Implementations;
+using Server.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +62,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddSingleton<JwtTokenHelper>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
@@ -69,6 +72,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddSingleton<JwtTokenHelper>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IAuthService, AuthService>();
 
 
 var app = builder.Build();
