@@ -16,15 +16,17 @@ public class SaleService : ISaleService
     public async Task<string> ProcessSaleAsync(SaleDto saleDto)
     {
         var product = await _productRepository.GetByIdAsync(saleDto.ProductId);
-        if(product == null || product.IsDeleted)
+        if (product == null || product.IsDeleted)
         {
-            return "Product not Found";
+            return "Product not found.";
         }
-        else if( saleDto.Quantity <= 0)
+        else if (saleDto.Quantity <= 0)
         {
-            return "Quantity must be greater then zero";
+            return "Quantity must be greater than zero.";
         }
-        else if(product.StockQty < saleDto.Quantity)
+        int totalSold = await _saleRepository.CurrentSold(product.Id);
+        int currentStock = product.StockQty - totalSold;
+        if (currentStock < saleDto.Quantity)
         {
             return "Insufficient stock.";
         }
@@ -38,11 +40,9 @@ public class SaleService : ISaleService
             SaleDate = DateTime.Now
         };
 
-        product.StockQty -= saleDto.Quantity;
-        product.UpdatedAt = DateTime.UtcNow;
         await _saleRepository.AddSaleAsync(sale);
-        await _productRepository.UpdateAsync(product);
-        
+
         return "Sale recorded successfully.";
     }
+
 }

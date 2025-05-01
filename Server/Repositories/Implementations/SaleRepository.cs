@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Server.Data;
 using Server.Models;
 using Server.Repositories.Interfaces;
@@ -15,5 +16,11 @@ public class SaleRepository : ISaleRepository
     {
         _context.Add(sale);
         await _context.SaveChangesAsync();
+    }
+    public async Task<int> CurrentSold(int id)
+    {
+        return await _context.Sales
+        .Where(s => s.ProductId == id)
+        .SumAsync(s => s.QuantitySold);
     }
 }
