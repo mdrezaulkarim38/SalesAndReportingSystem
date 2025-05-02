@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./routes/PrivateRoute";
+import Product from "./pages/Product";
+import Sales from "./pages/Sales";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<PrivateRoute><MainLayout component={<Home />} /> </PrivateRoute>} />
+          <Route path="/products" element={<PrivateRoute><MainLayout component={<Product />}/></PrivateRoute>} />
+          <Route path="/sales" element={<PrivateRoute><MainLayout component={<Sales />}/></PrivateRoute>} />
           <Route path="/register" element={<MainLayout component={<Register />} />} />
           <Route path="/login" element={<MainLayout component={<Login />} />} />
         </Routes>

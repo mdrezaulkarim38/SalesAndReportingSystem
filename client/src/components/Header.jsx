@@ -26,8 +26,29 @@ function Header() {
             <li className="nav-item">
               <Link className="nav-link" to="/sales">Sales</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/reports">Reports</Link>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="reportsDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Reports
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="reportsDropdown">
+                <li>
+                  <Link className="dropdown-item" to="/reports/sales">
+                    Current Stock Report
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/reports/stock">
+                    Date Wise Stock Report
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
 
