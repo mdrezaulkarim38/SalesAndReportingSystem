@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from "react-toastify";
 import {
   login as loginUser,
   register as registerUser,
@@ -7,7 +8,6 @@ import {
 
 const AuthContext = createContext();
 
-// AuthProvider component
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
     logoutUser();
     localStorage.removeItem("token");
     setToken(null);
+    toast.info("Logged out successfully!");
   };
 
   return (
@@ -46,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
