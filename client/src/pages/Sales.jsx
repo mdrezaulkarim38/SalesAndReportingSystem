@@ -29,11 +29,11 @@ function Sales() {
 
     const selected = products.find((p) => p.id === parseInt(id));
     if (selected) {
-      // calculate current stock: initial - total sold
-      fetch(`/api/Sale/stock/${id}`) // You can add this backend endpoint OR preload current stock in product list
+      
+      fetch(`/api/Sale/stock/${id}`) 
         .then((res) => res.json())
         .then((data) => setAvailableStock(data.currentStock))
-        .catch(() => setAvailableStock(selected.stockQty)); // fallback to initial
+        .catch(() => setAvailableStock(selected.stockQty));
     }
   };
 
@@ -51,7 +51,7 @@ function Sales() {
       setSelectedProductId("");
       setQuantity("");
       setAvailableStock(null);
-      loadProducts(); // Refresh products
+      loadProducts();
     } catch (err) {
       toast.error(err.response?.data?.error || "Sale failed.");
     }

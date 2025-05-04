@@ -20,7 +20,7 @@ public class SalesController : ControllerBase
     public async Task<IActionResult> Create([FromBody] SaleDto saleDto)
     {
         var result = await _saleService.ProcessSaleAsync(saleDto);
-        if(result == "Sale processed successfully.")
+        if(result == "Sale recorded successfully.")
         {
             return Ok(new { message  = result});
         }
