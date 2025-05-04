@@ -1,5 +1,5 @@
-
 # Sales And Reporting System
+
 ## 📘 Project Setup & Run Instructions
 
 This project consists of:
@@ -32,36 +32,57 @@ Ensure the following are installed on your system:
 
 ---
 
+### 🛠️ Initial Backend Configuration
+
+Before running the backend, complete the following steps:
+
+1. Open the file:
+
+   ```
+   /Server/appsettings.json
+   ```
+
+2. Set your **database connection string** under the `DefaultConnection` key.
+
+   Example:
+
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=YOUR_SERVER;Database=YOUR_DB;Trusted_Connection=True;"
+   }
+   ```
+
+3. Apply database migrations (migrations are already included in the project):
+
+   ```bash
+   cd Server
+   dotnet ef database update
+   ```
+
+> ⚠️ Ensure `dotnet-ef` tool is installed. If not, install it via:
+>
+> ```bash
+> dotnet tool install --global dotnet-ef
+> ```
+
+---
+
 ### 🚀 Running the Backend (ASP.NET Core)
 
 #### Option 1: Using Command Line
 
-1. Open a terminal/command prompt.
-2. Navigate to the `Server` directory:
-
-   ```bash
-   cd Server
-   ```
-3. Run the backend server:
-
-   ```bash
-   dotnet run
-   ```
-
-> Make sure `.NET SDK 8` is properly installed and added to the system path.
+```bash
+cd Server
+dotnet run
+```
 
 #### Option 2: Using Visual Studio Code
 
 1. Open the project in **VS Code**.
-2. Open the integrated terminal (`Ctrl + ~`).
-3. Navigate to the `Server` folder:
+2. Open the terminal (`Ctrl + ~`) and run:
 
    ```bash
    cd Server
-   ```
-4. Run the backend:
-
-   ```bash
    dotnet run
    ```
 
@@ -75,12 +96,12 @@ Ensure the following are installed on your system:
    ```bash
    cd client
    ```
-3. Install project dependencies:
+3. Install dependencies:
 
    ```bash
    npm install
    ```
-4. Start the frontend development server:
+4. Start the frontend:
 
    ```bash
    npm run dev
@@ -96,11 +117,9 @@ http://localhost:5173
 
 ### 🔁 Important Note on CORS Configuration
 
-If the frontend runs on a **different port**, you must **update the backend's CORS settings** in:
+If the frontend runs on a **different port**, update the backend’s CORS settings in:
 
 > `Server/Program.cs`
-
-Locate the CORS section:
 
 ```csharp
 app.UseCors(options =>
@@ -111,36 +130,33 @@ app.UseCors(options =>
 });
 ```
 
-👉 Change the URL in `.WithOrigins(...)` to match the actual frontend port if it differs from `5173`.
+Change the URL in `.WithOrigins(...)` to match your actual frontend port.
 
 ---
 
 ### ✅ Testing the Project
 
-1. Ensure the backend is running via:
+1. Make sure the backend is running:
 
    ```bash
    dotnet run
    ```
-
-2. Ensure the frontend is running via:
+2. Make sure the frontend is running:
 
    ```bash
    npm run dev
    ```
-
-3. Open your browser and navigate to:
+3. Visit:
 
    ```
    http://localhost:5173
    ```
-
-4. Test the features:
+4. Verify functionality:
 
    * Load products
    * Make a sale
-   * Observe available stock updates
-   * Ensure success/error notifications are shown properly
+   * Stock updates
+   * Toast notifications (success/error)
 
 ---
 
